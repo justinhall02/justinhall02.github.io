@@ -32,7 +32,8 @@ const page = (sig, dark) => `<!doctype html><html><head><meta charset="utf-8"><s
     for (const dark of [false, true]) {
       const p = await browser.newPage();
       await p.setViewport({ width: 720, height: 400, deviceScaleFactor: 2 });
-      await p.setContent(page(sig, dark), { waitUntil: "networkidle0" });
+      await p.setContent(page(sig, dark), { waitUntil: "load", timeout: 90000 });
+      await p.evaluate(() => document.fonts.ready);
       const name = f.replace(".html", "") + (dark ? "-dark" : "-light") + ".png";
       await p.screenshot({ path: path.join(OUT, name), fullPage: true });
       await p.close();
