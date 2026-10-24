@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "people": [
+    {
+      "email": "justin@justinhallconsulting.com",
+      "aliases": ["justin.hall@justinhallconsulting.com"],
+      "name": "Justin Hall",
+      "title": "Founder & CEO",
+      "ext": "101",
+      "bookingUrl": "https://www2.justinhallconsulting.com/meetings/justin1462",
+      "reviewUrl": "https://g.page/r/CQkaX6QaHB9xEBM/review"
+    },
+    {
+      "email": "steve@justinhallconsulting.com",
+      "aliases": ["steve.yazell@justinhallconsulting.com"],
+      "name": "Steve Yazell",
+      "title": "Chief Revenue Officer",
+      "ext": "102",
+      "bookingUrl": "https://www2.justinhallconsulting.com/meetings/steve-yazell",
+      "reviewUrl": "https://g.page/r/CQkaX6QaHB9xEBM/review"
+    },
+    {
+      "email": "zerah@justinhallconsulting.com",
+      "aliases": [],
+      "name": "Zerah",
+      "title": "",
+      "ext": "103"
+    },
+    {
+      "email": "jersey@justinhallconsulting.com",
+      "aliases": [],
+      "name": "Jersey Despuig",
+      "title": "",
+      "ext": "104"
+    }
+  ]
+}

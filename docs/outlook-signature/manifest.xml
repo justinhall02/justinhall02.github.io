@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- JHC Signature: adds each staff member's company signature to new emails, replies and forwards.
+     Add-in only (XML) manifest: it is the one manifest type that runs event-based add-ins on
+     Windows (classic and new), the web, Mac AND iOS/Android. Full doc: README.md in the repo. -->
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+  xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="MailApp">
+  <Id>d3919a56-e1ba-4206-a2c8-4eb406fca86d</Id>
+  <Version>1.0.0.0</Version>
+  <ProviderName>Justin Hall Consulting</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="JHC Signature"/>
+  <Description DefaultValue="Adds your Justin Hall Consulting signature to new emails, replies and forwards."/>
+  <IconUrl DefaultValue="https://justinhall02.github.io/outlook-signature/assets/icon-64.png"/>
+  <HighResolutionIconUrl DefaultValue="https://justinhall02.github.io/outlook-signature/assets/icon-128.png"/>
+  <SupportUrl DefaultValue="https://justinhallconsulting.com/"/>
+  <AppDomains>
+    <AppDomain>https://justinhall02.github.io</AppDomain>
+  </AppDomains>
+  <Hosts>
+    <Host Name="Mailbox"/>
+  </Hosts>
+  <Requirements>
+    <Sets DefaultMinVersion="1.1">
+      <Set Name="Mailbox"/>
+    </Sets>
+  </Requirements>
+  <!-- Old schema, only used by very old clients. VersionOverrides below replaces it. -->
+  <FormSettings>
+    <Form xsi:type="ItemRead">
+      <DesktopSettings>
+        <SourceLocation DefaultValue="https://justinhall02.github.io/outlook-signature/commands.html"/>
+        <RequestedHeight>250</RequestedHeight>
+      </DesktopSettings>
+    </Form>
+  </FormSettings>
+  <Permissions>ReadWriteItem</Permissions>
+  <Rule xsi:type="RuleCollection" Mode="Or">
+    <Rule xsi:type="ItemIs" ItemType="Message" FormType="Read"/>
+  </Rule>
+  <DisableEntityHighlighting>false</DisableEntityHighlighting>
+
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.1" xsi:type="VersionOverridesV1_1">
+      <Description resid="AppDesc"/>
+      <!-- 1.5, not 1.10: Outlook on iOS/Android only reports 1.5. Desktop clients still need 1.10
+           for the launch event itself, which every supported desktop build has. -->
+      <Requirements>
+        <bt:Sets DefaultMinVersion="1.5">
+          <bt:Set Name="Mailbox"/>
+        </bt:Sets>
+      </Requirements>
+      <Hosts>
+        <Host xsi:type="MailHost">
+          <!-- One runtime: the HTML page for web, new Outlook, Mac and mobile; the JS override
+               for classic Outlook on Windows (its JavaScript-only runtime). -->
+          <Runtimes>
+            <Runtime resid="Runtime.Url">
+              <Override type="javascript" resid="RuntimeJs.Url"/>
+            </Runtime>
+          </Runtimes>
+          <DesktopFormFactor>
+            <FunctionFile resid="Runtime.Url"/>
+            <!-- OnNewMessageCompose fires on new, reply, reply all and forward (not on reopening a draft). -->
+            <ExtensionPoint xsi:type="LaunchEvent">
+              <LaunchEvents>
+                <LaunchEvent Type="OnNewMessageCompose" FunctionName="onNewMessageComposeHandler"/>
+              </LaunchEvents>
+              <SourceLocation resid="Runtime.Url"/>
+            </ExtensionPoint>
+          </DesktopFormFactor>
+          <MobileFormFactor>
+            <ExtensionPoint xsi:type="LaunchEvent">
+              <LaunchEvents>
+                <LaunchEvent Type="OnNewMessageCompose" FunctionName="onNewMessageComposeHandler"/>
+              </LaunchEvents>
+              <SourceLocation resid="Runtime.Url"/>
+            </ExtensionPoint>
+          </MobileFormFactor>
+        </Host>
+      </Hosts>
+      <Resources>
+        <bt:Images>
+          <bt:Image id="Icon.16x16" DefaultValue="https://justinhall02.github.io/outlook-signature/assets/icon-16.png"/>
+          <bt:Image id="Icon.32x32" DefaultValue="https://justinhall02.github.io/outlook-signature/assets/icon-32.png"/>
+          <bt:Image id="Icon.80x80" DefaultValue="https://justinhall02.github.io/outlook-signature/assets/icon-80.png"/>
+        </bt:Images>
+        <bt:Urls>
+          <bt:Url id="Runtime.Url" DefaultValue="https://justinhall02.github.io/outlook-signature/commands.html"/>
+          <bt:Url id="RuntimeJs.Url" DefaultValue="https://justinhall02.github.io/outlook-signature/commands.js"/>
+        </bt:Urls>
+        <bt:LongStrings>
+          <bt:String id="AppDesc" DefaultValue="Adds your Justin Hall Consulting signature to new emails, replies and forwards."/>
+        </bt:LongStrings>
+      </Resources>
+    </VersionOverrides>
+  </VersionOverrides>
+</OfficeApp>
