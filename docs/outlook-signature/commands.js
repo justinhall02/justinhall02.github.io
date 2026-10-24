@@ -20,7 +20,9 @@ var JHC_SIG = (function () {
   var HOME_URL = "https://justinhallconsulting.com/";
   var ALARM_URL = "https://www.alarm.com/US/JustinHallConsulting?home=1";
   var LOGO_URL = "https://justinhallconsulting.com/wp-content/uploads/2026/10/brandmark-design-av.png";
-  var ALARM_LOGO_URL = "https://justinhallconsulting.com/wp-content/uploads/2025/09/Alarm_logo.png";
+  // Same Alarm.com logo as WordPress 2025/09/Alarm_logo.png, flattened onto white so its black
+  // lettering does not vanish in dark mode. Shown at its true shape (316x192 -> 110x67).
+  var ALARM_LOGO_URL = "https://justinhall02.github.io/outlook-signature/assets/alarm-partner-white.png";
   var MAIN_PHONE = "404-905-2213";
   var SERVICE_EMAIL = "Service@JustinHallConsulting.com";
 
@@ -67,7 +69,7 @@ var JHC_SIG = (function () {
     right += '<div style="margin:0px; ' + FONT + ' font-size:12px; color:rgb(51,65,85)">&nbsp; &nbsp; &nbsp; &nbsp; We Construct Business Technology</div>';
     right += '<div style="margin:0px; ' + FONT + ' font-size:11px; color:rgb(71,85,105)">Cabling &middot; Security &middot; Telecom &amp; Mobile &middot; AV</div>';
     right += '<div style="margin:0px; ' + FONT + ' font-size:11px; line-height:28px">&nbsp;</div>';
-    right += '<div style="margin:0px"><a href="' + ALARM_URL + '" style="text-decoration:none"><img alt="Authorized Alarm.com Partner" width="146" height="63" src="' + ALARM_LOGO_URL + '" style="width:146px; height:63px; margin:0px; display:block; border:0"></a></div>';
+    right += '<div style="margin:0px"><a href="' + ALARM_URL + '" style="text-decoration:none"><img alt="Authorized Alarm.com Partner" width="110" height="67" src="' + ALARM_LOGO_URL + '" style="width:110px; height:67px; margin:0px; display:block; border:0"></a></div>';
     right += '<div style="line-height:1.4; margin:0px; ' + FONT + ' font-size:12px; color:rgb(31,41,55)"><b>W:</b>&nbsp;<a href="' + HOME_URL + '" style="' + LINK + '">justinhallconsulting.com</a></div>';
 
     return (

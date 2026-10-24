@@ -38,7 +38,7 @@ function checkHtml(email, html) {
   ok(!/TITLE_TBD/.test(html), email + ": no TITLE_TBD");
   ok(html.includes("404-905-2213 " + e.ext), email + ": phone + ext");
   ok(html.includes("mailto:Service@JustinHallConsulting.com"), email + ": service email");
-  ok(html.includes("brandmark-design-av.png") && html.includes("Alarm_logo.png"), email + ": both images");
+  ok(html.includes("brandmark-design-av.png") && html.includes("alarm-partner-white.png"), email + ": both images");
   ok(html.includes("Cabling &middot; Security &middot; Telecom &amp; Mobile &middot; AV"), email + ": byline");
   ok(e.booking ? html.includes(e.booking) : !html.includes("Book time"), email + ": booking link");
   ok(e.review ? html.includes("g.page/r/") : !html.includes("feedback on Google"), email + ": review link");
@@ -89,14 +89,15 @@ function runVm(email, mode, opts) {
     Office,
     fetch: fetchFor(mode),
     Promise,
-    setTimeout: (fn) => setImmediate(fn), // makes the 10 s timeout fire at once for the hang case
+    // In the hang case, make the 10 s timeout fire at once; otherwise use the real timer.
+    setTimeout: mode === "hang" ? (fn) => setImmediate(fn) : setTimeout,
   };
   vm.createContext(sandbox);
   vm.runInContext(JS, sandbox, { filename: "commands.js" });
   if (log.associated !== "onNewMessageComposeHandler") throw new Error("handler not associated");
   return new Promise((resolve) => {
     log.fn({ completed() { log.completed++; resolve(log); } });
-    setTimeout(() => resolve(log), 3000);
+    setTimeout(() => resolve(log), 15000);
   });
 }
 
